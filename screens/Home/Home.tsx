@@ -9,9 +9,7 @@ const Home = () => {
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar />
       <Header />
-
       <CategoriesSection />
-      <Text>Home</Text>
     </SafeAreaView>
   );
 };

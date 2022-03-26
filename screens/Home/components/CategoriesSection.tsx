@@ -3,13 +3,14 @@ import React, {useState} from 'react';
 import {COLORS, dummyData, FONTS, SIZES} from '../../../constants';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {MainCategories} from './';
+import {CategoryList} from './';
 
 const CategoriesSection = () => {
   const [categories, setCategories] = useState(dummyData.categoryData);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   const getRestaurant = (category: typeof selectedCategory) => {
-    const restaurantList = dummyData.restaurantData.find(restaurant =>
+    const restaurantList = dummyData.restaurantData.filter(restaurant =>
       restaurant.categories.includes(category.id),
     );
     return restaurantList;
@@ -26,13 +27,20 @@ const CategoriesSection = () => {
     setRestaurants(restaurantList);
     setSelectedCategory(category);
   };
+  const getCategoryNameById = (categoryId: number) => {
+    return categories.filter(cat => cat.id === categoryId).map(cat => cat.name);
+  };
   return (
-    <View>
+    <View style={{flex: 1}}>
       <MainCategories
         categories={categories}
         categoriesLength={categoriesLength}
         selectedCategory={selectedCategory}
         setSelectedCategory={onSelectCategory}
+      />
+      <CategoryList
+        restaurants={restaurants}
+        getCategoryNameById={getCategoryNameById}
       />
     </View>
   );

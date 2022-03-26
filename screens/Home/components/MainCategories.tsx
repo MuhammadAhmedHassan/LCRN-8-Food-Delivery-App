@@ -23,7 +23,7 @@ const MainCategories = ({
   setSelectedCategory,
 }: IProps) => {
   return (
-    <View style={{marginTop: SIZES.padding3}}>
+    <View style={{marginVertical: SIZES.padding3}}>
       <View style={{marginHorizontal: SIZES.padding2}}>
         <Text style={{...FONTS.h1, color: COLORS.black}}>Main</Text>
         <Text style={{...FONTS.h1, color: COLORS.black}}>Categories</Text>
