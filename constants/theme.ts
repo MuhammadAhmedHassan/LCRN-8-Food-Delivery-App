@@ -25,6 +25,7 @@ const SIZES = {
   radius: 30,
   padding: 10,
   padding2: 12,
+  padding3: 24,
 
   // font sizes
   largeTitle: 50,
