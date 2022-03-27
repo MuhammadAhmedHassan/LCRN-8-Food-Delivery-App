@@ -9,9 +9,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import {RestaurantType} from '../../../types';
+import React, {useState} from 'react';
+import {
+  MenuItemType,
+  RestaurantType,
+  RestaurantScreenProp,
+} from '../../../types';
 import {COLORS, dummyData, FONTS, icons, SIZES} from '../../../constants';
+import {useNavigation} from '@react-navigation/native';
 
 interface IProps {
   scrollX: Animated.Value;
@@ -21,10 +26,46 @@ interface IProps {
 const FoodInfo = ({scrollX, restaurant}: IProps) => {
   const {menu} = restaurant;
   const currentLocation = dummyData.initialCurrentLocation;
+  const navigation = useNavigation<RestaurantScreenProp>();
+  // States
+  const [itemsInCart, setItemsInCart] = useState<{
+    [key: string]: {
+      items: number;
+      price: number;
+    };
+  }>({});
 
-  const renderQuantityButton = (text: '—' | '+') => {
+  // Computed values
+  const totalItemsInCart = Object.values(itemsInCart).reduce(
+    (prev, curr) => prev + curr.items,
+    0,
+  );
+  const totalPrice = Object.values(itemsInCart).reduce(
+    (prev, curr) => prev + curr.price,
+    0,
+  );
+
+  const renderQuantityButton = (text: '—' | '+', item: MenuItemType) => {
     return (
-      <TouchableOpacity style={{flex: 1}}>
+      <TouchableOpacity
+        style={{flex: 1}}
+        onPress={() => {
+          const {name, price} = item;
+          const value = itemsInCart[name] || {items: 0, price: 0};
+          const newItems =
+            text === '—'
+              ? Math.max(0, value.items - 1)
+              : Math.min(Number.MAX_SAFE_INTEGER, value.items + 1);
+
+          const newPrice =
+            text === '—'
+              ? Math.max(0, value.price - price)
+              : Math.min(Number.MAX_SAFE_INTEGER, value.price + price);
+
+          itemsInCart[name] = {items: newItems, price: newPrice};
+
+          setItemsInCart({...itemsInCart});
+        }}>
         <Text
           style={{
             ...FONTS.h2,
@@ -106,10 +147,10 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      elevation: 9,
                       marginBottom: -20,
+                      ...styles.shadow,
                     }}>
-                    {renderQuantityButton('—')}
+                    {renderQuantityButton('—', item)}
                     <Text
                       style={{
                         ...FONTS.h3,
@@ -117,9 +158,9 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
                         flex: 1,
                         textAlign: 'center',
                       }}>
-                      1
+                      {itemsInCart[item.name]?.items ?? 0}
                     </Text>
-                    {renderQuantityButton('+')}
+                    {renderQuantityButton('+', item)}
                   </View>
                 </ImageBackground>
               </View>
@@ -234,9 +275,9 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
           right: 0,
           bottom: 0,
           backgroundColor: COLORS.white,
-          elevation: 9,
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
+          ...styles.shadow,
         }}>
         <View
           style={{
@@ -248,10 +289,11 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
             borderBottomWidth: 1,
           }}>
           <Text style={{...FONTS.h4, color: COLORS.black, fontWeight: '700'}}>
-            4 Items in Cart
+            {totalItemsInCart} Items in Cart
           </Text>
           <Text style={{...FONTS.h4, color: COLORS.black, fontWeight: '700'}}>
-            $46.90
+            ${totalPrice.toFixed(2)}
+            {/* $46.90 */}
           </Text>
         </View>
         <View
@@ -277,6 +319,11 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
               justifyContent: 'center',
               height: 60,
               borderRadius: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('OrderDelivery', {
+                restaurant,
+              });
             }}>
             <Text style={{...FONTS.h4, color: COLORS.white, fontWeight: '700'}}>
               Order
@@ -290,4 +337,15 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
 
 export default FoodInfo;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 9,
+  },
+});
