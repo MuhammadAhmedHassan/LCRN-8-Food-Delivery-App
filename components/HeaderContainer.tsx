@@ -46,13 +46,14 @@ const HeaderContainer = ({
         <View
           style={{
             padding: SIZES.base,
+            paddingHorizontal: SIZES.font,
             minWidth: 150,
             backgroundColor: COLORS.lightGray,
             borderRadius: 20,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text style={{...FONTS.h3}}>{title}</Text>
+          <Text style={{...FONTS.h4, color: COLORS.black}}>{title}</Text>
         </View>
       )}
       {!!rightIcon && getIcon(rightIcon)}

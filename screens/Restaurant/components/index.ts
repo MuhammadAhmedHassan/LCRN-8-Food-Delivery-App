@@ -1,3 +1,4 @@
+import FoodInfo from './FoodInfo';
 import Header from './Header';
 
-export {Header};
+export {Header, FoodInfo};

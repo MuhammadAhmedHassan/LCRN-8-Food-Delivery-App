@@ -1,4 +1,4 @@
-import { RouteProp } from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {dummyData} from './constants';
 
@@ -16,9 +16,11 @@ export type HomeBottomTabParamList = {
   User: undefined;
 };
 
+export type RestaurantType = typeof dummyData.restaurantData[0];
+
 export type RootStackParamList = {
   Home: HomeBottomTabParamList;
-  Restaurant: {item: typeof dummyData.restaurantData[0]};
+  Restaurant: {item: RestaurantType};
   OrderDelivery: undefined;
   // ItemDetail: {
   //   item: HomeProductType;
