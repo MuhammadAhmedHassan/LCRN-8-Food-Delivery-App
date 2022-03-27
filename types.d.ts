@@ -20,7 +20,9 @@ export type RestaurantScreenProp = StackNavigationProp<
   RootStackParamList,
   'Restaurant'
 >;
+export type OrderDeliveryProp = StackNavigationProp<RootStackParamList, 'OrderDelivery'>;
 export type RestaurantRouteProps = RouteProp<RootStackParamList, 'Restaurant'>;
+export type OrderDeliveryRouteProps = RouteProp<RootStackParamList, 'OrderDelivery'>;
 
 export type RestaurantType = typeof dummyData.restaurantData[0];
 export type MenuItemType = {
