@@ -181,7 +181,7 @@ const OrderDelivery = () => {
         <MapViewDirections
           origin={fromLocation}
           destination={toLoccation}
-          apikey={'AIzaSyCJJb2hOFeYeDK9-lugcEMheKAp1SppqOA'}
+          apikey={'GOOGLE_API_KEY'}
           strokeWidth={5}
           strokeColor={COLORS.primary}
           optimizeWaypoints={true}
