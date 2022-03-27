@@ -137,7 +137,8 @@ const FoodInfo = ({scrollX, restaurant}: IProps) => {
                     alignItems: 'center',
                     justifyContent: 'flex-end',
                   }}
-                  imageStyle={{borderRadius: 140}}>
+                  // imageStyle={{borderRadius: 140}}
+                  >
                   <View
                     style={{
                       backgroundColor: COLORS.white,
