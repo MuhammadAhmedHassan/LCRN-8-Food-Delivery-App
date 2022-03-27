@@ -6,7 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {RootStackParamList} from './types';
 import {Tabs} from './navigation';
-import {Restaurant} from './screens';
+import {OrderDelivery, Restaurant} from './screens';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -26,6 +26,7 @@ const App = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Tabs} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
+        <Stack.Screen name="OrderDelivery" component={OrderDelivery} />
       </Stack.Navigator>
     </NavigationContainer>
   );
