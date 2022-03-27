@@ -1,4 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack';
+import {dummyData} from './constants';
 
 // export type HomeProductType = {
 //   productId: number;
@@ -16,13 +17,13 @@ export type HomeBottomTabParamList = {
 
 export type RootStackParamList = {
   Home: HomeBottomTabParamList;
-  Restaurant: undefined;
+  Restaurant: {item: typeof dummyData.restaurantData[0]};
   OrderDelivery: undefined;
   // ItemDetail: {
   //   item: HomeProductType;
   // };
 };
-// export type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
+export type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 // export type ItemDetailsScreenProp = StackNavigationProp<
 //   RootStackParamList,
 //   'ItemDetail'

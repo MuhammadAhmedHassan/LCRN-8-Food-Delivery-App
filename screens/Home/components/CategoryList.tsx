@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import {COLORS, dummyData, FONTS, icons, SIZES} from '../../../constants';
+import {useNavigation} from '@react-navigation/native';
+import {HomeScreenProp} from '../../../types';
 
 interface IProps {
   restaurants: typeof dummyData.restaurantData;
@@ -16,7 +18,7 @@ interface IProps {
 }
 
 const CategoryList = ({restaurants, getCategoryNameById}: IProps) => {
-  const restaurantsLength = restaurants.length;
+  const navigation = useNavigation<HomeScreenProp>();
   return (
     <FlatList
       data={restaurants}
@@ -26,10 +28,14 @@ const CategoryList = ({restaurants, getCategoryNameById}: IProps) => {
         paddingHorizontal: SIZES.padding * 2,
         paddingBottom: SIZES.padding2,
       }}
-      renderItem={({item, index}) => {
-        const last = index === restaurantsLength - 1;
+      renderItem={({item}) => {
         return (
           <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('Restaurant', {
+                item,
+              })
+            }
             key={item.id}
             style={{
               marginBottom: SIZES.padding,
